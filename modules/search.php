@@ -5,7 +5,7 @@
 		</div>
 
 		<div class="col-md-9">
-			<?php foreach(query('SELECT * FROM menus WHERE name LIKE "%'.$_REQUEST['keyword'].'%" ') as $v): ?>			
+			<?php foreach(query('SELECT * FROM menus WHERE name LIKE "%'.addslashes($_REQUEST['keyword']).'%" ') as $v): ?>			
 				<div class="jumbotron">
 					<div class="row">
 						<div class="col-md-6"> 

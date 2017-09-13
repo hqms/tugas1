@@ -14,6 +14,6 @@ $dbh = new PDO($dsn, $username, $password, $options);
 function query($sql){
 	global $dbh;
 
-	// print ($sql);
+	//print ($sql);
 	return $dbh->query($sql);
 }
