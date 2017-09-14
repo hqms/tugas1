@@ -1,5 +1,4 @@
 /*
- Navicat Premium Data Transfer
 
  Source Server         : docker
  Source Server Type    : MySQL
@@ -11,7 +10,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 09/13/2017 09:02:29 AM
+ Date: 09/14/2017 21:15:49 PM
 */
 
 SET NAMES utf8;
@@ -60,9 +59,11 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT, 
   `username` varchar(50) NOT NULL,
   `password` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`username`)
+  `group` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
@@ -71,5 +72,25 @@ CREATE TABLE `user` (
 BEGIN;
 INSERT INTO `user` VALUES ('hakim', 'password');
 COMMIT;
+
+-- ----------------------------
+--  Register user 'user'
+-- ----------------------------
+GRANT USAGE ON *.* TO 'users'@'localhost' IDENTIFIED BY 'userpassword'
+
+GRANT Select ON TABLE `tugas1`.`user` TO `user`@`localhost`;
+GRANT Insert, Select, Update ON TABLE `tugas1`.`categories` TO `user`@`localhost`;
+GRANT Insert, Select, Update ON TABLE `tugas1`.`menus` TO `user`@`localhost`;
+
+-- ----------------------------
+--  Register user 'admin'
+-- ----------------------------
+GRANT USAGE ON *.* TO 'admin'@'localhost' IDENTIFIED BY 'adminpassword'
+
+GRANT Insert, Select, Update, Delete ON TABLE `tugas1`.`user` TO `user`@`localhost`;
+GRANT Insert, Select, Update, Delete ON TABLE `tugas1`.`categories` TO `user`@`localhost`;
+GRANT Insert, Select, Update, Delete ON TABLE `tugas1`.`menus` TO `user`@`localhost`;
+
+FLUSH PRIVILEGES;
 
 SET FOREIGN_KEY_CHECKS = 1;
