@@ -18,9 +18,11 @@ switch($act) {
 
   	$header['id_cat'] = 'id_cat';
   	foreach ($header as $key => $value) {
-  		$data[] = sprintf('%s="%s"', $key, $_REQUEST[$key]);
+  		$data[] = sprintf('%s=?', $key);
+      $datum[] = $_REQUEST[$key];      
   	}
-  	query(sprintf('UPDATE menus SET %s WHERE id=%s', implode(',', $data), $_REQUEST['id']));
+
+    call_user_func_array('query', array_merge([sprintf('UPDATE menus SET %s WHERE id=%s', implode(',', $data), $_REQUEST['id'])],$datum));
   	header('Location: index.php?m=menus');
 
   break;
@@ -29,10 +31,10 @@ switch($act) {
   	foreach (query('SELECT * FROM categories') as $key => $value) {
   		$categories[$value['id']] = $value['category_name'];
   	}
-	$header['id_cat'] = $categories;
+    $header['id_cat'] = $categories;
 
-	$q = query('SELECT * FROM menus WHERE id='.$_REQUEST['id']);
-	$data = $q->fetch();
+    $q = query('SELECT * FROM menus WHERE id=?', $_REQUEST['id']);
+    $data = $q->fetch();
 
   	print '<div class="col-md-3"></div><div class="col-md-6">';
   	generateForm($header, 'index.php?m=menus&act=update', $_REQUEST['id'], $data);
@@ -41,10 +43,12 @@ switch($act) {
   break;
   case 'save':
   	$header['id_cat'] = 'id_cat';
-  	foreach ($header as $key => $value) {
-  		$data[] = sprintf('%s="%s"', $key, $_REQUEST[$key]);
+  	foreach ($header as $key => $value) {      
+  		$data[] = sprintf('%s=?', $key);
+      $datum[] = $_REQUEST[$key];
   	}
-  	query('INSERT INTO menus SET '.implode(',', $data));
+
+  	call_user_func_array('query', array_merge(['INSERT INTO menus SET '.implode(',', $data)],$datum));
   	header('Location: index.php?m=menus');
   break;
   case 'new': 
@@ -62,8 +66,8 @@ switch($act) {
   break; 
 
   case 'delete':
-  	query('DELETE FROM menus where id='.$_REQUEST['id']);
-	header('Location: index.php?m=menus' );
+    query('DELETE FROM menus where id=?', $_REQUEST['id']);
+    header('Location: index.php?m=menus' );
   break;
   default: 
   	array_pop($header);

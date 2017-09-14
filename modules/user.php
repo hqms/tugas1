@@ -17,15 +17,17 @@ switch($act) {
   case 'update':
 
   	foreach ($header as $key => $value) {
-  		$data[] = sprintf('`%s`="%s"', $key, $_REQUEST[$key]);
+  		$data[] = sprintf('`%s`=?', $key);
+      $datum[] = $_REQUEST[$key];
   	}
-  	query(sprintf('UPDATE user SET %s WHERE id=%s', implode(',', $data), $_REQUEST['id']));
+
+    call_user_func_array('query', array_merge([sprintf('UPDATE user SET %s WHERE id=%s', implode(',', $data), $_REQUEST['id'])],$datum));
   	header('Location: index.php?m=user');
 
   break;
   case 'edit':
   	
-	$q = query('SELECT * FROM user WHERE id='.$_REQUEST['id']);
+	$q = query('SELECT * FROM user WHERE id=?', $_REQUEST['id']);
 	$data = $q->fetch();
 
   	print '<div class="col-md-3"></div><div class="col-md-6">';
@@ -35,10 +37,12 @@ switch($act) {
   break;
   case 'save':  
   	foreach ($header as $key => $value) {
-  		$data[] = sprintf('`%s`="%s"', $key, $_REQUEST[$key]);
+  		$data[] = sprintf('`%s`=?', $key);
+      $datum[] = $_REQUEST[$key];
   	}
   	
-  	query('INSERT INTO user SET '.implode(',', $data));
+
+    call_user_func_array('query', array_merge(['INSERT INTO user SET '.implode(',', $data)],$datum));
   	header('Location: index.php?m=user');
   break;
   case 'new': 
@@ -50,8 +54,8 @@ switch($act) {
   break; 
 
   case 'delete':
-  	query('DELETE FROM user where id='.$_REQUEST['id']);
-	header('Location: index.php?m=user' );
+  	query('DELETE FROM user where id=?', $_REQUEST['id']);
+	  header('Location: index.php?m=user' );
   break;
   default: 
   	array_pop($header);

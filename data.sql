@@ -60,16 +60,18 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`username`)
+  `group` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('hakim', 'password');
+INSERT INTO `user` VALUES ('1', 'hakim', 'password', 'admin');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

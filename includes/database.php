@@ -16,7 +16,7 @@ function query(){
 
 	$args = func_get_args();
 	$sql = $args[0];
-	
+		
 	if(count($args)>1){
 		array_shift($args);	
 		$params = $args;
@@ -27,8 +27,8 @@ function query(){
 	$stmt = $dbh->prepare($sql);
 	$stmt->execute($params);
 
-	var_dump($stmt);
-	var_dump($args);
+	 // var_dump($stmt);
+	 // var_dump($args);
 	
 	return $stmt;
 
