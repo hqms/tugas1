@@ -1,6 +1,6 @@
 # SecureApp
 
-SecureApp adalah aplikasi untuk menyajikan menu online :D. Aplikasi ini dibuat sebagai contoh aplikasi web yang akan digunakan untuk melakukan percobaan hacking dengan menggunakan metode Injection.
+SecureApp adalah aplikasi untuk menyajikan menu online :sunglasses:. Aplikasi ini dibuat sebagai contoh aplikasi web yang akan digunakan untuk melakukan percobaan hacking dengan menggunakan metode Injection.
 
 Aplikasi ini mempunyai beberapa module:
 * Halaman Utama
@@ -58,3 +58,12 @@ http://localhost:8000/index.php?m=menu&a=cat_id&id=1;DROP TABLE user;
 ```
 
 serangan ini dimaksudkan untuk mengganti nilai yang ada pada input dengan SQL Statement lain
+
+## Patch 2
+Setiap input yang diterima oleh aplikasi (pada aplikasi ini didapat dari variable `$_REQUEST`) harus divalidasi. Pada PHP dapat menggunakan fungsi-fungsi typecasting sehingga hasilnya sudah sesuai dengan yang diinginkan. 
+
+Sebagai contoh, field `ID` di setiap table menggunakan tipe data integer, dengan meng-casting nilai dari `$_REQUEST['id']` maka akan didapatkan tipe data integer dari variable tersebut
+
+```php
+(int)$_REQUEST['id'];  // hasilnya akan diubah menjadi integer
+```
