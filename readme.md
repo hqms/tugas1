@@ -44,3 +44,6 @@ C: Create
 R: Read
 U: Update
 D: Delete
+
+## Patch 3
+Untuk mengatasi serangan ini user yang digunakan untuk mengakses database disesuaikan dengan group dari user yang login ke database. Sehingga setiap user yang login hanya akan mendapatkan hak sesuai dengan ACL di atas.
