@@ -67,3 +67,26 @@ Sebagai contoh, field `ID` di setiap table menggunakan tipe data integer, dengan
 ```php
 (int)$_REQUEST['id'];  // hasilnya akan diubah menjadi integer
 ```
+
+
+## Attack 3
+Serangan berikutnya adalah memanfaatkan database yang tidak terkelola penggunanya dengan baik. Dengan menggunakan satu user, maka semua orang bisa mengakses dan memodifikasi table dengan mudah. 
+
+Pada kasus ini, Attacker masih menggunakan celah keamanan (search form ataupun query string) untuk memodifikasi data (pada Attack 1) ataupun menghapus table yang ada (pada Attack 3).
+
+Dengan memetakan table-table yang tersedia, maka dapat ditentukan hak akses untuk setiap module, atau biasa disebut dengan ACL (Access Control List)
+
+Module name | Admin | User
+------------|-------|-------
+user | CRUD   | R
+categories | CRUD | CRU
+menus | CRUD | CRU
+
+
+C: Create
+R: Read
+U: Update
+D: Delete
+
+## Patch 3
+Untuk mengatasi serangan ini user yang digunakan untuk mengakses database disesuaikan dengan group dari user yang login ke database. Sehingga setiap user yang login hanya akan mendapatkan hak sesuai dengan ACL di atas.

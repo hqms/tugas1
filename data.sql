@@ -1,5 +1,4 @@
 /*
- Navicat Premium Data Transfer
 
  Source Server         : docker
  Source Server Type    : MySQL
@@ -11,7 +10,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 09/13/2017 09:02:29 AM
+ Date: 09/14/2017 21:15:49 PM
 */
 
 SET NAMES utf8;
@@ -73,5 +72,25 @@ CREATE TABLE `user` (
 BEGIN;
 INSERT INTO `user` VALUES ('1', 'hakim', 'password', 'admin');
 COMMIT;
+
+-- ----------------------------
+--  Register user 'user'
+-- ----------------------------
+GRANT USAGE ON *.* TO 'users'@'%' IDENTIFIED BY 'userpassword'
+
+GRANT Select ON TABLE `tugas1`.`user` TO `user`@`localhost`;
+GRANT Insert, Select, Update ON TABLE `tugas1`.`categories` TO `user`@`localhost`;
+GRANT Insert, Select, Update ON TABLE `tugas1`.`menus` TO `user`@`localhost`;
+
+-- ----------------------------
+--  Register user 'admin'
+-- ----------------------------
+GRANT USAGE ON *.* TO 'admin'@'%' IDENTIFIED BY 'adminpassword'
+
+GRANT Insert, Select, Update, Delete ON TABLE `tugas1`.`user` TO `user`@`localhost`;
+GRANT Insert, Select, Update, Delete ON TABLE `tugas1`.`categories` TO `user`@`localhost`;
+GRANT Insert, Select, Update, Delete ON TABLE `tugas1`.`menus` TO `user`@`localhost`;
+
+FLUSH PRIVILEGES;
 
 SET FOREIGN_KEY_CHECKS = 1;
