@@ -27,9 +27,8 @@ function query(){
 	$stmt = $dbh->prepare($sql);
 	$stmt->execute($params);
 
-	 // var_dump($stmt);
-	 // var_dump($args);
-	
+	error_log($stmt->queryString.' '. json_encode($params));
+
 	return $stmt;
 
 }
