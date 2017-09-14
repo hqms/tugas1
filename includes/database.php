@@ -11,9 +11,25 @@ $options = array(
 $dbh = new PDO($dsn, $username, $password, $options);
 
 
-function query($sql){
+function query(){
 	global $dbh;
 
-	//print ($sql);
-	return $dbh->query($sql);
+	$args = func_get_args();
+	$sql = $args[0];
+	
+	if(count($args)>1){
+		array_shift($args);	
+		$params = $args;
+	}else{
+		$params = [];
+	}	
+	
+	$stmt = $dbh->prepare($sql);
+	$stmt->execute($params);
+
+	var_dump($stmt);
+	var_dump($args);
+	
+	return $stmt;
+
 }

@@ -38,3 +38,8 @@ Pada patch ini query yang dijalankan harusnya adalah sebagai berikut:
 ```
 SELECT * FROM menus WHERE name LIKE "%\"; INSERT INTO user SET username=\"hacker\", password=\"password rahasia\"; --%"
 ```
+
+Di tahap ini refactoring dilakukan pada fungsi query, dari yang semula hanya bertugas menjalankan query menjadi fungsi yang harus menyiapkan statement sampai dengan mengeksekusinya
+
+
+## Attack 2
