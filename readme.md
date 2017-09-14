@@ -31,3 +31,16 @@ Serangan berikutnya adalah memanfaatkan database yang tidak terkelola penggunany
 
 Pada kasus ini, Attacker masih menggunakan celah keamanan (search form ataupun query string) untuk memodifikasi data (pada Attack 1) ataupun menghapus table yang ada (pada Attack 3).
 
+Dengan memetakan table-table yang tersedia, maka dapat ditentukan hak akses untuk setiap module, atau biasa disebut dengan ACL (Access Control List)
+
+Module name | Admin | User
+------------|-------|-------
+user | CRUD   | R
+categories | CRUD | CRU
+menus | CRUD | CRU
+
+
+C: Create
+R: Read
+U: Update
+D: Delete
