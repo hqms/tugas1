@@ -76,7 +76,7 @@ COMMIT;
 -- ----------------------------
 --  Register user 'user'
 -- ----------------------------
-GRANT USAGE ON *.* TO 'users'@'localhost' IDENTIFIED BY 'userpassword'
+GRANT USAGE ON *.* TO 'users'@'%' IDENTIFIED BY 'userpassword'
 
 GRANT Select ON TABLE `tugas1`.`user` TO `user`@`localhost`;
 GRANT Insert, Select, Update ON TABLE `tugas1`.`categories` TO `user`@`localhost`;
@@ -85,7 +85,7 @@ GRANT Insert, Select, Update ON TABLE `tugas1`.`menus` TO `user`@`localhost`;
 -- ----------------------------
 --  Register user 'admin'
 -- ----------------------------
-GRANT USAGE ON *.* TO 'admin'@'localhost' IDENTIFIED BY 'adminpassword'
+GRANT USAGE ON *.* TO 'admin'@'%' IDENTIFIED BY 'adminpassword'
 
 GRANT Insert, Select, Update, Delete ON TABLE `tugas1`.`user` TO `user`@`localhost`;
 GRANT Insert, Select, Update, Delete ON TABLE `tugas1`.`categories` TO `user`@`localhost`;
