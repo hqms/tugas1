@@ -20,7 +20,7 @@ switch($act) {
   	foreach ($header as $key => $value) {
   		$data[] = sprintf('%s="%s"', $key, $_REQUEST[$key]);
   	}
-  	query(sprintf('UPDATE menus SET %s WHERE id=%s', implode(',', $data), $_REQUEST['id']));
+  	query(sprintf('UPDATE menus SET %s WHERE id=%s', implode(',', $data), (int)$_REQUEST['id']));
   	header('Location: index.php?m=menus');
 
   break;
@@ -31,7 +31,7 @@ switch($act) {
   	}
 	$header['id_cat'] = $categories;
 
-	$q = query('SELECT * FROM menus WHERE id='.$_REQUEST['id']);
+	$q = query('SELECT * FROM menus WHERE id='.(int)$_REQUEST['id']);
 	$data = $q->fetch();
 
   	print '<div class="col-md-3"></div><div class="col-md-6">';
@@ -62,7 +62,7 @@ switch($act) {
   break; 
 
   case 'delete':
-  	query('DELETE FROM menus where id='.$_REQUEST['id']);
+  	query('DELETE FROM menus where id='.(int)$_REQUEST['id']);
 	header('Location: index.php?m=menus' );
   break;
   default: 

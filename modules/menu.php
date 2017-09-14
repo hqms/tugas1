@@ -5,7 +5,7 @@
 		</div>
 
 		<div class="col-md-9">
-		<?php foreach(query('SELECT * FROM menus where id_cat='.$_REQUEST['id']) as $v) :?>
+		<?php foreach(query('SELECT * FROM menus where id_cat='.(int)$_REQUEST['id']) as $v) :?>
 			<div class="jumbotron">
 				<div class="row">
 					<div class="col-md-6"> 

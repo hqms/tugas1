@@ -19,13 +19,13 @@ switch($act) {
   	foreach ($header as $key => $value) {
   		$data[] = sprintf('`%s`="%s"', $key, $_REQUEST[$key]);
   	}
-  	query(sprintf('UPDATE user SET %s WHERE id=%s', implode(',', $data), $_REQUEST['id']));
+  	query(sprintf('UPDATE user SET %s WHERE id=%s', implode(',', $data), (int)$_REQUEST['id']));
   	header('Location: index.php?m=user');
 
   break;
   case 'edit':
   	
-	$q = query('SELECT * FROM user WHERE id='.$_REQUEST['id']);
+	$q = query('SELECT * FROM user WHERE id='.(int)$_REQUEST['id']);
 	$data = $q->fetch();
 
   	print '<div class="col-md-3"></div><div class="col-md-6">';
@@ -50,7 +50,7 @@ switch($act) {
   break; 
 
   case 'delete':
-  	query('DELETE FROM user where id='.$_REQUEST['id']);
+  	query('DELETE FROM user where id='.(int)$_REQUEST['id']);
 	header('Location: index.php?m=user' );
   break;
   default: 
