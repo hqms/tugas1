@@ -2,7 +2,7 @@
 	$msg = '';
 	if(isset($_REQUEST['username'])){
 		
-		$result = query('SELECT * FROM user WHERE username="'.$_REQUEST['username'].'"');
+		$result = query('SELECT * FROM user WHERE username=?', $_REQUEST['username']);
 		$user = $result->fetch();
 		
 		if ($user){

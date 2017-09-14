@@ -20,10 +20,27 @@ Dengan menggunakan form search Attacker akan mencoba mendaftarkan user baru dan 
 Input yang akan dimasukkan dimasukkan pada form search adalah sebagai berikut
 
 ```
-"; INSERT INTO user SET username="hacker", password="password rahasia";
+"; INSERT INTO user SET username="hacker", password="password rahasia"; --
 ```
 
-pada halaman pencarian tidak akan merubah apa-apa, akan tetapi secara diam-diam Attacker sudah dapat login ke sistem dengan username dan password tersebut diatas.
+pada halaman hasil pencarian tidak akan berubah apa-apa, akan tetapi secara diam-diam Attacker sudah dapat login ke sistem dengan username dan password tersebut diatas.
+
+### Patch 1
+Serangan pertama tadi dapat diatas dengan mengabaikan quotes atau kutip dimana serangan tersebut dimulai. 
+
+Query yang dijalankan pada serangan diatas adalah sebagai berikut:
+
+```
+SELECT * FROM menus WHERE name LIKE "%"; INSERT INTO user SET username="hacker", password="password rahasia"; --%"
+```
+
+Pada patch ini query yang dijalankan harusnya adalah sebagai berikut:
+```
+SELECT * FROM menus WHERE name LIKE "%\"; INSERT INTO user SET username=\"hacker\", password=\"password rahasia\"; --%"
+```
+
+Di tahap ini refactoring dilakukan pada fungsi query, dari yang semula hanya bertugas menjalankan query menjadi fungsi yang harus menyiapkan statement sampai dengan mengeksekusinya
+
 
 ## Attack 2
 Serangan berikutnya adalah dengan memanfaatkan input yang tidak ditentukan tipe datanya. 
@@ -41,4 +58,3 @@ http://localhost:8000/index.php?m=menu&a=cat_id&id=1;DROP TABLE user;
 ```
 
 serangan ini dimaksudkan untuk mengganti nilai yang ada pada input dengan SQL Statement lain
-
