@@ -13,7 +13,7 @@ Aplikasi ini mempunyai beberapa module:
 Untuk menjalankan aplikasi ini dibutuhkan PHP dan MySQL server sebagai databasenya. Struktur tabel dan beberapa row contoh dapat dilihat pada file data.sql
 
 ## Attack 1
-Pada serangan ini Attacker akan coba mengubah query yang dijalankan dengan memberikan parameter lebih pada input, baik itu POST (dari form) maupun GET (dari query string)
+Pada serangan ini Attacker akan coba mengubah SQL Statement yang dijalankan dengan memberikan parameter lebih pada input, baik itu POST (dari form) maupun GET (dari query string)
 
 Dengan menggunakan form search Attacker akan mencoba mendaftarkan user baru dan digunakan untuk masuk ke sistem
 
@@ -24,3 +24,21 @@ Input yang akan dimasukkan dimasukkan pada form search adalah sebagai berikut
 ```
 
 pada halaman pencarian tidak akan merubah apa-apa, akan tetapi secara diam-diam Attacker sudah dapat login ke sistem dengan username dan password tersebut diatas.
+
+## Attack 2
+Serangan berikutnya adalah dengan memanfaatkan input yang tidak ditentukan tipe datanya. 
+
+Attacker akan menggunakan query string pada pilihan category menu sebagai berikut:
+
+```
+http://localhost:8000/index.php?m=menu&a=cat_id&id=1
+```
+
+bila link tersebut diubah secara manual pada query stringnya, maka akan mempengaruhi SQL statement yang akan dijalankan. Contoh query string yang diganti menjadi:
+
+```
+http://localhost:8000/index.php?m=menu&a=cat_id&id=1;DROP TABLE user;
+```
+
+serangan ini dimaksudkan untuk mengganti nilai yang ada pada input dengan SQL Statement lain
+
