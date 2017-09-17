@@ -27,7 +27,7 @@ function generateTable($head, $queryResult, $baseUrl){
 }
 
 function generateForm($header, $baseUrl, $id='', $data = []){
-	printf('<form  method="POST" action="%s"> ', $baseUrl);
+	printf('<form  method="POST" action="%s" enctype="multipart/form-data"> ', $baseUrl);
 	foreach ($header as $key => $value) {
 
 		if(is_array($value)){
@@ -39,6 +39,11 @@ function generateForm($header, $baseUrl, $id='', $data = []){
 				    	<label for="%s">%s</label>
 				    	<select class="form-control" name="%s">%s</select>		    
 			  		</div>', $key, $key, $key, $val);
+		}elseif($key == 'image'){
+			printf('<div class="form-group">
+				    	<label for="%s">%s</label>
+				    	<input type="file" class="form-control" name="%s" />
+			  		</div>', $key, $key, $key);
 		}else{
 			if(count($data) && isset($data[$key])){
 				$d = sprintf('value="%s"', $data[$key]);

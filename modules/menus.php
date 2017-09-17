@@ -18,9 +18,20 @@ switch($act) {
 
   	$header['id_cat'] = 'id_cat';
   	foreach ($header as $key => $value) {
-  		$data[] = sprintf('%s=?', $key);
-      $datum[] = $_REQUEST[$key];      
-  	}
+      if ($key == 'image'){
+        if($_FILES['image']){
+          $filepath = './images/'.$_FILES['image']['name'];
+          if(move_uploaded_file($_FILES['image']['tmp_name'],$filepath)){
+            $data[] = sprintf('%s=?', $key);
+            $datum[] = $filepath;    
+          }
+        }
+        
+      }else{
+        $data[] = sprintf('%s=?', $key);
+        $datum[] = $_REQUEST[$key];
+      }     
+    }
 
     call_user_func_array('query', array_merge([sprintf('UPDATE menus SET %s WHERE id=%s', implode(',', $data), (int)$_REQUEST['id'])],$datum));
   	header('Location: index.php?m=menus');
@@ -43,9 +54,20 @@ switch($act) {
   break;
   case 'save':
   	$header['id_cat'] = 'id_cat';
-  	foreach ($header as $key => $value) {      
-  		$data[] = sprintf('%s=?', $key);
-      $datum[] = $_REQUEST[$key];
+  	foreach ($header as $key => $value) {
+      if ($key == 'image'){
+        if($_FILES['image']){
+          $filepath = './images/'.$_FILES['image']['name'];
+          if(move_uploaded_file($_FILES['image']['tmp_name'],$filepath)){
+            $data[] = sprintf('%s=?', $key);
+            $datum[] = $filepath;    
+          }
+        }
+        
+      }else{
+        $data[] = sprintf('%s=?', $key);
+        $datum[] = $_REQUEST[$key];
+      }  		
   	}
 
   	call_user_func_array('query', array_merge(['INSERT INTO menus SET '.implode(',', $data)],$datum));
