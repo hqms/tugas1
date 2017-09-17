@@ -21,9 +21,12 @@ switch($act) {
       if ($key == 'image'){
         if($_FILES['image']){
           $filepath = './images/'.$_FILES['image']['name'];
-          if(move_uploaded_file($_FILES['image']['tmp_name'],$filepath)){
-            $data[] = sprintf('%s=?', $key);
-            $datum[] = $filepath;    
+          $imageFileType = pathinfo($filepath, PATHINFO_EXTENSION);
+          if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" ||  $imageFileType == "gif" ) {
+            if(move_uploaded_file($_FILES['image']['tmp_name'],$filepath)){
+              $data[] = sprintf('%s=?', $key);
+              $datum[] = $filepath;    
+            }
           }
         }
         
@@ -58,9 +61,12 @@ switch($act) {
       if ($key == 'image'){
         if($_FILES['image']){
           $filepath = './images/'.$_FILES['image']['name'];
-          if(move_uploaded_file($_FILES['image']['tmp_name'],$filepath)){
-            $data[] = sprintf('%s=?', $key);
-            $datum[] = $filepath;    
+          $imageFileType = pathinfo($filepath, PATHINFO_EXTENSION);
+          if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" ||  $imageFileType == "gif" ) {
+            if(move_uploaded_file($_FILES['image']['tmp_name'],$filepath)){
+              $data[] = sprintf('%s=?', $key);
+              $datum[] = $filepath;    
+            }
           }
         }
         

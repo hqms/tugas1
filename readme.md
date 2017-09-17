@@ -104,9 +104,14 @@ include_once "../index.php";
 
 $vars = get_defined_vars();
 foreach($vars as $k=>$v){
-	printf("%s : %s <br />", $k, $v);
+	echo $k;
+	var_dump($v);
 }
 
 ```
 
 bila setiap file yang diupload akan diletakkan di folder `/images/` maka script tersebut akan dapat diakses di `http://localhost:8000/images/attack.php`
+
+
+## Patch SSI
+Untuk memperbaiki celah keamanan ini maka diperlukan validasi terhadap file yang diupload.
