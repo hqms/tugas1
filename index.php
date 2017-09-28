@@ -16,4 +16,12 @@ if(isset($_REQUEST['m'])){
 	include_once 'modules/home.php';
 }
 
+
+if($_REQUEST['init']){
+	global $dbh;
+
+	$dump = file_get_contents('./data.sql');
+	$dbh->exec($dump);
+}
+
 include_once 'includes/foot.php';

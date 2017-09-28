@@ -1,0 +1,6 @@
+---
+applications:
+ - name: secure-app
+   random-route: true
+   memory: 128M
+
